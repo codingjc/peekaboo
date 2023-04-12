@@ -17,4 +17,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.codingjc</groupId>
+            <artifactId>peekaboo-domain</artifactId>
+            <version>${peekaboo.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

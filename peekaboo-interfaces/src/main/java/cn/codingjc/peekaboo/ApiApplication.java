@@ -1,4 +1,4 @@
-package cn.codingjc.peekaboo.api;
+package cn.codingjc.peekaboo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

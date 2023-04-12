@@ -27,6 +27,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>cn.codingjc</groupId>
+            <artifactId>peekaboo-application</artifactId>
+            <version>${peekaboo.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
