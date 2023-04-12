@@ -1,4 +1,4 @@
-package cn.codingjc.peekaboo.domain;
+package cn.codingjc.peekaboo.infrastructure.persistence.PO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

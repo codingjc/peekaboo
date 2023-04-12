@@ -19,6 +19,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>cn.codingjc</groupId>
+            <artifactId>peekaboo-infrastructure</artifactId>
+            <version>${peekaboo.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
