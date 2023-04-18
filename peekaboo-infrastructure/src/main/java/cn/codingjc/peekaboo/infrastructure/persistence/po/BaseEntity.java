@@ -1,5 +1,6 @@
-package cn.codingjc.peekaboo.infrastructure.persistence.PO;
+package cn.codingjc.peekaboo.infrastructure.persistence.po;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class BaseEntity implements Serializable {
     /**
      * 搜索值
      */
+    @TableField(exist = false)
     private String searchValue;
 
     /**
@@ -53,5 +55,6 @@ public class BaseEntity implements Serializable {
     /**
      * 请求参数
      */
+    @TableField(exist = false)
     private Map<String, Object> params;
 }

@@ -1,9 +1,11 @@
 package cn.codingjc.peekaboo;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@MapperScan("cn.codingjc.peekaboo.infrastructure.persistence.mapper")
 public class ApiApplication {
 
     public static void main(String[] args) {

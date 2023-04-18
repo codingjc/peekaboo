@@ -1,4 +1,4 @@
-package cn.codingjc.peekaboo.infrastructure.persistence.PO;
+package cn.codingjc.peekaboo.infrastructure.persistence.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -7,11 +7,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @auth: coding_jc
  * @date: 2023/4/12 22:27
- * @desc: 用户类
+ * @desc: 用户持久类
  */
 
 @Data
@@ -54,7 +55,7 @@ public class SysUserPO extends BaseEntity {
     /**
      * 联系方式
      */
-    private String phoneNumber;
+    private String phonenumber;
 
     /**
      * 用户性别（0男 1女 2未知）
@@ -90,4 +91,7 @@ public class SysUserPO extends BaseEntity {
      * 最后登录时间
      */
     private Date loginDate;
+
+    @TableField(exist = false)
+    private List<SysRolePO> roles;
 }
