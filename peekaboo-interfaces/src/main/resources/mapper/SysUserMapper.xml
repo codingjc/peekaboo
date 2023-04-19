@@ -17,7 +17,7 @@
         <result column="nick_name" property="nickName" />
         <result column="user_type" property="userType" />
         <result column="email" property="email" />
-        <result column="phonenumber" property="phoneNumber" />
+        <result column="phonenumber" property="phonenumber" />
         <result column="sex" property="sex" />
         <result column="avatar" property="avatar" />
         <result column="password" property="password" />
