@@ -47,7 +47,7 @@ public class VertifyCodeController {
       BufferedImage image = producer.createImage(text);
 
       // 存入redis
-      RedisUtils.set("");
+//      RedisUtils.set("");
       try{
          FastByteArrayOutputStream os = new FastByteArrayOutputStream();
          ImageIO.write(image, "jpg", os);
