@@ -25,3 +25,13 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
+
+vertify:
+  code:
+    timeout: 300
+
+
+jwt:
+  expiration: 6000000
+  id: codingjc
+  secret: codingjc

@@ -5,4 +5,6 @@ package cn.codingjc.peekaboo.domain.common.constant;
  * @auther: codingjc
  */
 public interface CommonConstant {
+
+    public static final String REDIS_VERTIFY_CODE_KEY = "vertify_code:key:";
 }

@@ -19,6 +19,6 @@ public class SysUserController {
     @PostMapping("/login")
     public ResultVO login(@RequestBody LoginRequestDTO loginRequestDTO){
         String token = sysUserService.login(loginRequestDTO);
-        return null;
+        return ResultVO.ok("success", token);
     }
 }

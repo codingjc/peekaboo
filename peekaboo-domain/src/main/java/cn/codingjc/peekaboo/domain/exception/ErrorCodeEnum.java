@@ -2,7 +2,8 @@ package cn.codingjc.peekaboo.domain.exception;
 
 public enum ErrorCodeEnum {
     TOKEN_INVALID(100001, "token失效,请重新登录"),
-    NOT_AUTHTICATION(100002, "尚未登录,请登录");
+    NOT_AUTHTICATION(100002, "尚未登录,请登录"),
+    VERTIFY_CODE_INVALID(100003, "");
 
     private Integer code;
     private String message;

@@ -19,7 +19,7 @@ public class RedisUtils {
     }
  
     @SuppressWarnings("unchecked")
-    private static RedisTemplate<String, Object> redisTemplate = SpringUtils.getBean(RedisTemplate.class);
+    private static RedisTemplate<String, Object> redisTemplate = (RedisTemplate<String, Object>) SpringUtils.getBean("redisTemplate");
  
     /**
      * 设置有效时间

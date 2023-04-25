@@ -10,6 +10,7 @@ import com.google.code.kaptcha.Producer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FastByteArrayOutputStream;
@@ -26,6 +27,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+import static cn.codingjc.peekaboo.domain.common.constant.CommonConstant.REDIS_VERTIFY_CODE_KEY;
+
 /**
  * @date: 2023/4/23 21:13
  * @auther: codingjc
@@ -33,10 +36,13 @@ import java.util.Base64;
 
 @Slf4j
 @RestController
-@AllArgsConstructor
 public class VertifyCodeController {
 
-   private final Producer producer;
+   @Autowired
+   private Producer producer;
+
+   @Value("${vertify.code.timeout}")
+   private Integer vertifyCodeTimeout;
 
    @GetMapping("/vertifyCode")
    public ResultVO getVertifyCode(HttpServletResponse response) throws IOException {
@@ -47,13 +53,13 @@ public class VertifyCodeController {
       BufferedImage image = producer.createImage(text);
 
       // 存入redis
-//      RedisUtils.set("");
       try{
          FastByteArrayOutputStream os = new FastByteArrayOutputStream();
          ImageIO.write(image, "jpg", os);
          byte[] b = new byte[]{};
          String imageStr = Base64.getEncoder().encodeToString(os.toByteArray());
          String uuid = UUID.fastUUID().toString();
+         RedisUtils.set(REDIS_VERTIFY_CODE_KEY + uuid, text, vertifyCodeTimeout);
          VertifyCodeVO vertifyCodeVO = VertifyCodeVO.builder()
                  .uuid(uuid)
                  .image(imageStr)
