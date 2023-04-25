@@ -107,7 +107,9 @@ public class SysUserPO extends BaseEntity implements UserDetails {
 //            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
 //        }
 //        return authorities;
-        return null;
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("TEST"));
+        return authorities;
     }
 
     @Override

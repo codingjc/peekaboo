@@ -12,9 +12,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -25,6 +27,12 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
+
+    private final MyAccessDeniedHandler accessDeniedHandler;
+
+    private final MyAuthenticationEntryPoint authenticationEntryPoint;
+
+    private final JwtAuthticationTokenFilter jwtAuthticationTokenFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -54,19 +62,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/vertifyCode").permitAll()
+                // 其他任何请求需要认证
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginProcessingUrl("/doLogin")
-                .successHandler((req, resp, auth) -> {
-                    Object principal = auth.getPrincipal();
-                    resp.setContentType("application/json;charset=utf-8");
-                    PrintWriter out = resp.getWriter();
-                    out.write(new ObjectMapper().writeValueAsString(principal));
-                    out.flush();
-                    out.close();
-                })
-                .permitAll()
+                // 关闭session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(jwtAuthticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .csrf().disable();
     }
