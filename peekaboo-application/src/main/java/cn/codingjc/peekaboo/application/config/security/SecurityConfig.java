@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+//    @Bean
     MyAuthenticationProvider myAuthenticationProvider() {
         MyAuthenticationProvider myAuthenticationProvider = new MyAuthenticationProvider();
         myAuthenticationProvider.setPasswordEncoder(passwordEncoder());
@@ -44,9 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    protected AuthenticationManager authenticationManager(){
-        ProviderManager providerManager = new ProviderManager(Arrays.asList(myAuthenticationProvider()));
-        return providerManager;
+    protected AuthenticationManager authenticationManager() throws Exception {
+//        ProviderManager providerManager = new ProviderManager(Arrays.asList(myAuthenticationProvider()));
+//        return providerManager;
+        return super.authenticationManager();
     }
 
     @Override
@@ -74,6 +75,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/vertifyCode");
+        web.ignoring().antMatchers("/vertifyCode", "/user/login");
     }
 }

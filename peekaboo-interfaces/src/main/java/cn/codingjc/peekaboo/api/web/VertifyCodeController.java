@@ -2,6 +2,7 @@ package cn.codingjc.peekaboo.api.web;
 
 import cn.codingjc.peekaboo.application.config.security.VerityCodeConfig;
 import cn.codingjc.peekaboo.application.util.MessageUtils;
+import cn.codingjc.peekaboo.application.util.RedisUtils;
 import cn.codingjc.peekaboo.domain.domain.vo.ResultVO;
 import cn.codingjc.peekaboo.domain.domain.vo.VertifyCodeVO;
 import cn.hutool.core.lang.UUID;
@@ -11,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -29,7 +32,7 @@ import java.util.Base64;
  */
 
 @Slf4j
-@Controller
+@RestController
 @AllArgsConstructor
 public class VertifyCodeController {
 
@@ -42,12 +45,14 @@ public class VertifyCodeController {
       String text = producer.createText();
       VerityCodeConfig.code = text;
       BufferedImage image = producer.createImage(text);
+
+      // 存入redis
+      RedisUtils.set("");
       try{
-         ServletOutputStream out = response.getOutputStream();
-         ImageIO.write(image, "jpg", out);
+         FastByteArrayOutputStream os = new FastByteArrayOutputStream();
+         ImageIO.write(image, "jpg", os);
          byte[] b = new byte[]{};
-         out.write(b);
-         String imageStr = Base64.getEncoder().encodeToString(b);
+         String imageStr = Base64.getEncoder().encodeToString(os.toByteArray());
          String uuid = UUID.fastUUID().toString();
          VertifyCodeVO vertifyCodeVO = VertifyCodeVO.builder()
                  .uuid(uuid)

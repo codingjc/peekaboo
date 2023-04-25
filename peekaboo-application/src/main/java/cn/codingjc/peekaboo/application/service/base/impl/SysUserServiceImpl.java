@@ -28,10 +28,10 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public String login(LoginRequestDTO loginRequestDTO) {
-//        UserDetails userDetails = service.loadUserByUsername(loginRequestDTO.getUsername());
-//        if (userDetails == null) {
-//            throw new BadCredentialsException("用户名或密码不正确");
-//        }
+        String uuid = loginRequestDTO.getUuid();
+        String veritfyCode = loginRequestDTO.getVeritfyCode();
+
+
         Authentication authenticate = null;
         try {
             UsernamePasswordAuthenticationToken authentication =
