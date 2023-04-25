@@ -1,5 +1,6 @@
 package cn.codingjc.peekaboo.application.config.security;
 
+import cn.codingjc.peekaboo.application.util.MessageUtils;
 import cn.codingjc.peekaboo.domain.common.enums.ResultEnum;
 import cn.codingjc.peekaboo.domain.domain.vo.ResultVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +21,7 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        response.getWriter().println(new ObjectMapper().writeValueAsString(ResultVO.fail(ResultEnum.AUTHTICATION_FAIL.getStatus())));
+        response.getWriter().println(new ObjectMapper().writeValueAsString(ResultVO.fail(MessageUtils.getMessage("permission.denied"))));
         response.getWriter().flush();
     }
 }

@@ -1,4 +1,4 @@
-package cn.codingjc.peekaboo.application.service;
+package cn.codingjc.peekaboo.application.service.base;
 
 import cn.codingjc.peekaboo.domain.repository.UserRepository;
 import cn.codingjc.peekaboo.infrastructure.persistence.po.SysUserPO;
@@ -28,4 +28,5 @@ public class UserService implements UserDetailsService {
       }
       return sysUserPO;
    }
+
 }
