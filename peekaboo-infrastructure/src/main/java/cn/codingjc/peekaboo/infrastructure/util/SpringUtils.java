@@ -1,4 +1,4 @@
-package cn.codingjc.peekaboo.application.util;
+package cn.codingjc.peekaboo.infrastructure.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

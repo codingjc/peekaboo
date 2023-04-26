@@ -1,7 +1,5 @@
 package cn.codingjc.peekaboo.application.config.security;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
@@ -23,11 +21,11 @@ public class MyAuthenticationProvider extends DaoAuthenticationProvider {
       String vertifyCodeWeb = request.getParameter("vertify_code");
       String vertifyCodeSession = (String) request.getSession().getAttribute("vertify_code");
 
-      if (StringUtils.isEmpty(vertifyCodeWeb) ||
-              StringUtils.isEmpty(VerityCodeConfig.code) ||
-              !vertifyCodeWeb.equals(VerityCodeConfig.code) ) {
-         throw new AuthenticationServiceException("验证码错误！");
-      }
+//      if (StringUtils.isEmpty(vertifyCodeWeb) ||
+//              StringUtils.isEmpty(VerityCodeConfig.code) ||
+//              !vertifyCodeWeb.equals(VerityCodeConfig.code) ) {
+//         throw new AuthenticationServiceException("验证码错误！");
+//      }
       super.additionalAuthenticationChecks(userDetails, authentication);
    }
 }

@@ -13,9 +13,18 @@ public class LoginRequestDTO {
     @NotEmpty(message = "密码不为空")
     private String password;
 
-    @NotEmpty(message = "uuid不为空")
+//    @NotEmpty(message = "uuid不为空")
     private String uuid;
 
-    @NotEmpty(message = "验证码不为空")
+//    @NotEmpty(message = "验证码不为空")
     private String veritfyCode;
+
+    @NotEmpty(message = "登录方式不为空")
+    private String loginType;
+
+//    @NotEmpty(message = "短信验证码不为空")
+    private String smsCode;
+
+    private String phonenumber;
+
 }
