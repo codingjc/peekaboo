@@ -22,4 +22,5 @@ public class VertifyCodeRepository {
     public void saveSmsCode(String phone, String smsCode){
         RedisUtils.set(REDIS_SMS_CODE_KEY + phone, smsCode, smsCodeTimeout);
     }
+
 }

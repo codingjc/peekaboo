@@ -20,6 +20,10 @@ public class ResultVO<T> {
         this.data = data;
     }
 
+    public static ResultVO ok(){
+        return ok(200, null, null);
+    }
+
     public static ResultVO ok(String message){
         return ok(200, message, null);
     }

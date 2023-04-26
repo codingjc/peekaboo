@@ -4,6 +4,7 @@ import cn.codingjc.peekaboo.application.service.base.SysUserService;
 import cn.codingjc.peekaboo.application.service.login.AccountUserLogin;
 import cn.codingjc.peekaboo.application.service.login.SmsUserLogin;
 import cn.codingjc.peekaboo.domain.domain.dto.LoginRequestDTO;
+import cn.codingjc.peekaboo.domain.domain.dto.RegisterRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,14 @@ public class SysUserServiceImpl implements SysUserService {
             return smsUserLogin.login(loginRequestDTO);
         }
         return null;
+    }
+
+    @Override
+    public void register(RegisterRequestDTO registerRequestDTO) {
+        // 校验用户名唯一
+
+        // 校验手机号唯一
+
     }
 
 }

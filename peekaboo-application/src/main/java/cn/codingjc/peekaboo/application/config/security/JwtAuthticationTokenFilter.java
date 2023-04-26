@@ -2,7 +2,6 @@ package cn.codingjc.peekaboo.application.config.security;
 
 
 import cn.codingjc.peekaboo.application.util.JwtUtils;
-import cn.codingjc.peekaboo.infrastructure.util.RedisUtils;
 import cn.codingjc.peekaboo.domain.exception.BusinessException;
 import cn.codingjc.peekaboo.domain.exception.ErrorCodeEnum;
 import cn.codingjc.peekaboo.domain.repository.UserRepository;
@@ -43,10 +42,13 @@ public class JwtAuthticationTokenFilter extends OncePerRequestFilter {
                 throw new BusinessException(ErrorCodeEnum.TOKEN_INVALID);
             }
             String username = claims.get("username", String.class);
-            String redisToken = (String) RedisUtils.get(username);
+            String redisToken = userRepository.getTokenByUserName(username);
             if (StringUtils.isEmpty(redisToken)) {
                 throw new BusinessException(ErrorCodeEnum.TOKEN_INVALID);
             }
+            // 刷新token
+            userRepository.reflush(username, redisToken);
+
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // token有效，存入securityContext
                 SysUserPO sysUserPO = userRepository.getUserByUsername(username);
@@ -57,5 +59,6 @@ public class JwtAuthticationTokenFilter extends OncePerRequestFilter {
             }
         }
         chain.doFilter(req, resp);
+        SecurityContextHolder.clearContext();
     }
 }

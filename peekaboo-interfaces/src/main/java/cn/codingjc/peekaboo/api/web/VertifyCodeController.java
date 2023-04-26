@@ -36,7 +36,7 @@ public class VertifyCodeController {
    @GetMapping("/vertifyCode")
    public ResultVO getVertifyCode(HttpServletResponse response) throws IOException {
       VertifyCodeVO vertifyCodeVO = vertifyCodeService.getVertifyCode(response);
-      return ResultVO.ok("success", vertifyCodeVO);
+      return ResultVO.ok(null, vertifyCodeVO);
    }
 
    /**

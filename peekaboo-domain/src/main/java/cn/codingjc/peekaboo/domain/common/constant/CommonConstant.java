@@ -8,4 +8,5 @@ public interface CommonConstant {
 
     public static final String REDIS_VERTIFY_CODE_KEY = "vertify_code:key:";
     public static final String REDIS_SMS_CODE_KEY = "sms_code:key:";
+    public static final String REDIS_USER_TOKEN_KEY = "user_token:key:";
 }
