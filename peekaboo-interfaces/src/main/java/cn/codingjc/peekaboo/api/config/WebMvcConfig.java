@@ -21,13 +21,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
 		sessionLocaleResolver.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
 		return sessionLocaleResolver;
-        //使用CookieLocaleResolver,也可使用SessionLocaleResolver，区别在于一个使用Cookie存储Locale信息，一个使用Session
-//        CookieLocaleResolver localeResolver = new CookieLocaleResolver();
-//        localeResolver.setCookieName("localeCookie");
-//        //设置默认区域
-//        localeResolver.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
-//        localeResolver.setCookieMaxAge(3600);//设置cookie有效期.
-//        return localeResolver;
     }
 
 

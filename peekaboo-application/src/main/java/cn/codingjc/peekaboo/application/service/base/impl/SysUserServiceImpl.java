@@ -4,7 +4,7 @@ import cn.codingjc.peekaboo.application.service.base.SysUserService;
 import cn.codingjc.peekaboo.application.service.base.UserService;
 import cn.codingjc.peekaboo.application.util.JwtUtils;
 import cn.codingjc.peekaboo.application.util.MessageUtils;
-import cn.codingjc.peekaboo.application.util.RedisUtils;
+import cn.codingjc.peekaboo.infrastructure.util.RedisUtils;
 import cn.codingjc.peekaboo.domain.common.constant.CommonConstant;
 import cn.codingjc.peekaboo.domain.domain.dto.LoginRequestDTO;
 import cn.codingjc.peekaboo.domain.exception.BusinessException;
@@ -14,12 +14,10 @@ import cn.hutool.core.util.ObjectUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 

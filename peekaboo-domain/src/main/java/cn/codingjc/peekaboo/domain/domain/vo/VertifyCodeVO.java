@@ -9,6 +9,6 @@ import lombok.Data;
 public class VertifyCodeVO {
 
     private String uuid;
-    private String image;
+    private String imageStr;
 
 }

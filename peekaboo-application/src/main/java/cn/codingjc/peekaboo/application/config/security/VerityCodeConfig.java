@@ -16,8 +16,6 @@ import java.util.Properties;
 @Configuration
 public class VerityCodeConfig {
 
-   public static String code = "";
-
    @Bean
    Producer veritfyCode(){
       Properties properties = new Properties();
