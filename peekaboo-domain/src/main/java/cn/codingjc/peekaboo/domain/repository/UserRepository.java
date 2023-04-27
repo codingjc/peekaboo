@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import static cn.codingjc.peekaboo.domain.common.constant.CommonConstant.REDIS_USER_TOKEN_KEY;
@@ -20,6 +21,9 @@ public class UserRepository {
 
     @Value("${user.token.timeout}")
     private Integer userTokeneTimeout;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public SysUserPO getUserByUsername(String username){
         QueryWrapper<SysUserPO> queryWrapper = new QueryWrapper<>();
@@ -54,6 +58,7 @@ public class UserRepository {
         SysUserPO sysUserPO = new SysUserPO();
         sysUserPO.initForInsert();
         BeanUtils.copyProperties(registerRequestDTO, sysUserPO);
+        sysUserPO.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
         sysUserPO.setUserType(1);
         sysUserPO.setStatus("0");
         sysUserPO.setDelFlag("0");

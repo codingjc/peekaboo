@@ -19,17 +19,33 @@ public class SysUserController {
 
     private final SysUserService sysUserService;
 
+    /**
+     * 用户注册
+     * @param registerRequestDTO
+     * @return
+     */
     @PostMapping("/register")
     public ResultVO register(@RequestBody RegisterRequestDTO registerRequestDTO) {
         sysUserService.register(registerRequestDTO);
         return ResultVO.ok(MessageUtils.getMessage("register.success"));
     }
+
+    /**
+     * 用户登录
+     * @param loginRequestDTO
+     * @return
+     */
     @PostMapping("/login")
     public ResultVO login(@RequestBody LoginRequestDTO loginRequestDTO){
         String token = sysUserService.login(loginRequestDTO);
         return ResultVO.ok(MessageUtils.getMessage("login.success"), token);
     }
 
+    /**
+     * 用户登出
+     * @param request
+     * @return
+     */
     @GetMapping("/loginOut")
     public ResultVO loginOut(HttpServletRequest request){
         String token = request.getHeader(TOKEN_HEADER);

@@ -2,12 +2,16 @@ package cn.codingjc.peekaboo.domain.domain.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 @Data
 public class RegisterRequestDTO {
 
     /**
      * 用户名
      */
+    @NotEmpty(message = "用户名不为空")
     private String userName;
 
     /**
@@ -28,6 +32,8 @@ public class RegisterRequestDTO {
     /**
      * 联系方式
      */
+    @NotEmpty(message = "用户名不为空")
+    @Pattern(regexp="^1[3|4|5|6|7|8|9][0-9]{9}$",message="手机号格式不正确！")
     private String phonenumber;
 
     /**
@@ -43,5 +49,6 @@ public class RegisterRequestDTO {
     /**
      * 密码
      */
+    @NotEmpty(message = "密码不为空")
     private String password;
 }
