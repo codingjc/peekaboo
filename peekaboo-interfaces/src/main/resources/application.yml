@@ -62,3 +62,7 @@ xxl:
       port: 38801
       logpath: logs/xxl-job/first-study
       logretentiondays: 7
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

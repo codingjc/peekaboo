@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import static cn.codingjc.peekaboo.domain.common.constant.CommonConstant.TOKEN_HEADER;
 
@@ -25,7 +26,7 @@ public class SysUserController {
      * @return
      */
     @PostMapping("/register")
-    public ResultVO register(@RequestBody RegisterRequestDTO registerRequestDTO) {
+    public ResultVO register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
         sysUserService.register(registerRequestDTO);
         return ResultVO.ok(MessageUtils.getMessage("register.success"));
     }
@@ -36,7 +37,7 @@ public class SysUserController {
      * @return
      */
     @PostMapping("/login")
-    public ResultVO login(@RequestBody LoginRequestDTO loginRequestDTO){
+    public ResultVO login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
         String token = sysUserService.login(loginRequestDTO);
         return ResultVO.ok(MessageUtils.getMessage("login.success"), token);
     }
