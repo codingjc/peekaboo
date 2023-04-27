@@ -43,8 +43,6 @@ jwt:
   id: codingjc
   secret: codingjc
 
-
-
 tencent:
   sms:
     account:
@@ -53,3 +51,14 @@ tencent:
       sms-sdk-app-id:
       template-id:
       sign-name:
+
+xxl:
+  job:
+    admin:
+      addresses:
+    accessToken: default_token
+    executor:
+      appname:
+      port: 38801
+      logpath: logs/xxl-job/first-study
+      logretentiondays: 7
