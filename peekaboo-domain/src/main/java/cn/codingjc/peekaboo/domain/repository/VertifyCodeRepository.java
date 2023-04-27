@@ -1,5 +1,6 @@
 package cn.codingjc.peekaboo.domain.repository;
 
+import cn.codingjc.peekaboo.domain.common.constant.CommonConstant;
 import cn.codingjc.peekaboo.infrastructure.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -19,8 +20,16 @@ public class VertifyCodeRepository {
         RedisUtils.set(REDIS_VERTIFY_CODE_KEY + uuid, code, vertifyCodeTimeout);
     }
 
+    public void deleteVertifyCode(String uuid){
+        RedisUtils.del(CommonConstant.REDIS_VERTIFY_CODE_KEY + uuid);
+    }
+
     public void saveSmsCode(String phone, String smsCode){
         RedisUtils.set(REDIS_SMS_CODE_KEY + phone, smsCode, smsCodeTimeout);
+    }
+
+    public void deleteSmsCode(String phone) {
+        RedisUtils.del(REDIS_SMS_CODE_KEY + phone);
     }
 
 }

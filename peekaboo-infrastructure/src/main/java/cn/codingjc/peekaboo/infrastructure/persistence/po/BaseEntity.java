@@ -3,6 +3,8 @@ package cn.codingjc.peekaboo.infrastructure.persistence.po;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -28,7 +30,7 @@ public class BaseEntity implements Serializable {
     /**
      * 创建者
      */
-    private String createBy;
+    private Long createBy;
 
     /**
      * 创建时间
@@ -39,7 +41,7 @@ public class BaseEntity implements Serializable {
     /**
      * 更新者
      */
-    private String updateBy;
+    private Long updateBy;
 
     /**
      * 更新时间
@@ -57,4 +59,13 @@ public class BaseEntity implements Serializable {
      */
     @TableField(exist = false)
     private Map<String, Object> params;
+
+    public void initForInsert(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        SysUserPO sysUserPO = (SysUserPO) authentication.getPrincipal();
+        this.createTime = new Date();
+        this.updateTime = new Date();
+        this.createBy = sysUserPO.getUserId();
+        this.updateBy = sysUserPO.getUserId();
+    }
 }

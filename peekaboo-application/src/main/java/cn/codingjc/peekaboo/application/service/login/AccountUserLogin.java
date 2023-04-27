@@ -4,9 +4,11 @@ import cn.codingjc.peekaboo.application.util.MessageUtils;
 import cn.codingjc.peekaboo.domain.common.constant.CommonConstant;
 import cn.codingjc.peekaboo.domain.domain.dto.LoginRequestDTO;
 import cn.codingjc.peekaboo.domain.exception.BusinessException;
+import cn.codingjc.peekaboo.domain.repository.VertifyCodeRepository;
 import cn.codingjc.peekaboo.infrastructure.persistence.po.SysUserPO;
 import cn.codingjc.peekaboo.infrastructure.util.RedisUtils;
 import cn.hutool.core.util.ObjectUtil;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,7 +17,10 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class AccountUserLogin extends UserLogin{
+
+    private final VertifyCodeRepository vertifyCodeRepository;
 
     @Override
     public SysUserPO doLogin(LoginRequestDTO loginRequestDTO) {
@@ -45,6 +50,6 @@ public class AccountUserLogin extends UserLogin{
             throw new BusinessException(MessageUtils.getMessage("vertify.code.error"));
         }
         // 删除验证码
-        RedisUtils.del(CommonConstant.REDIS_VERTIFY_CODE_KEY + uuid);
+        vertifyCodeRepository.deleteVertifyCode(uuid);
     }
 }

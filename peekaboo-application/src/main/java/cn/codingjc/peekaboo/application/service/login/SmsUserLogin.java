@@ -4,6 +4,7 @@ import cn.codingjc.peekaboo.application.util.MessageUtils;
 import cn.codingjc.peekaboo.domain.domain.dto.LoginRequestDTO;
 import cn.codingjc.peekaboo.domain.exception.BusinessException;
 import cn.codingjc.peekaboo.domain.repository.UserRepository;
+import cn.codingjc.peekaboo.domain.repository.VertifyCodeRepository;
 import cn.codingjc.peekaboo.infrastructure.persistence.po.SysUserPO;
 import cn.codingjc.peekaboo.infrastructure.util.RedisUtils;
 import cn.hutool.core.util.ObjectUtil;
@@ -20,6 +21,8 @@ public class SmsUserLogin extends UserLogin{
 
     private final UserRepository userRepository;
 
+    private final VertifyCodeRepository vertifyCodeRepository;
+
     @Override
     public SysUserPO doLogin(LoginRequestDTO loginRequestDTO) {
         String phonenumber = loginRequestDTO.getPhonenumber();
@@ -31,12 +34,12 @@ public class SmsUserLogin extends UserLogin{
         if (!smsCode.equalsIgnoreCase(redisSmsCode)) {
             throw new BusinessException(MessageUtils.getMessage("vertify.code.error"));
         }
+        vertifyCodeRepository.deleteSmsCode(phonenumber);
         SysUserPO sysUserPO = userRepository.getUserByPhonenumber(phonenumber);
         if (ObjectUtil.isEmpty(sysUserPO)) {
-            // todo 为注册过的用户给以注册
+            return userRepository.savePhoneUser(phonenumber);
         } else {
             return sysUserPO;
         }
-        return null;
     }
 }

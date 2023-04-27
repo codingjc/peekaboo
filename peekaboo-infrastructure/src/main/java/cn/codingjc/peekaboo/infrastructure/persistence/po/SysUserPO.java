@@ -48,7 +48,7 @@ public class SysUserPO extends BaseEntity implements UserDetails {
     private String nickName;
 
     /**
-     * 用户类型（00系统用户）
+     * 用户类型（0:系统用户,1:web用户,2:手机用户）
      */
     private Integer userType;
 

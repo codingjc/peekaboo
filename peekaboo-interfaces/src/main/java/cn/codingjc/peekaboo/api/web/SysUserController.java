@@ -21,7 +21,7 @@ public class SysUserController {
         return ResultVO.ok(MessageUtils.getMessage("login.success"), token);
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResultVO register(@RequestBody RegisterRequestDTO registerRequestDTO) {
         sysUserService.register(registerRequestDTO);
         return ResultVO.ok(MessageUtils.getMessage("register.success"));
