@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import static cn.codingjc.peekaboo.domain.common.constant.CommonConstant.TOKEN_HEAD;
+
 public abstract class UserLogin {
     @Autowired
     UserRepository userRepository;
@@ -36,7 +38,7 @@ public abstract class UserLogin {
         String token = JwtUtils.generateToken(sysUserPO.getUsername());
         // 存入redis
         userRepository.saveToken(sysUserPO.getUsername(), token);
-        return token;
+        return TOKEN_HEAD + token;
     }
 
 

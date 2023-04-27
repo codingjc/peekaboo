@@ -8,4 +8,6 @@ public interface SysUserService {
     String login(LoginRequestDTO loginRequestDTO);
 
     void register(RegisterRequestDTO registerRequestDTO);
+
+    void loginOut(String token);
 }

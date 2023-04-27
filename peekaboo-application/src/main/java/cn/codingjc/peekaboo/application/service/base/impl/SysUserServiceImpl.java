@@ -3,16 +3,22 @@ package cn.codingjc.peekaboo.application.service.base.impl;
 import cn.codingjc.peekaboo.application.service.base.SysUserService;
 import cn.codingjc.peekaboo.application.service.login.AccountUserLogin;
 import cn.codingjc.peekaboo.application.service.login.SmsUserLogin;
+import cn.codingjc.peekaboo.application.util.JwtUtils;
 import cn.codingjc.peekaboo.application.util.MessageUtils;
 import cn.codingjc.peekaboo.domain.domain.dto.LoginRequestDTO;
 import cn.codingjc.peekaboo.domain.domain.dto.RegisterRequestDTO;
 import cn.codingjc.peekaboo.domain.exception.BusinessException;
+import cn.codingjc.peekaboo.domain.exception.ErrorCodeEnum;
 import cn.codingjc.peekaboo.domain.repository.UserRepository;
 import cn.codingjc.peekaboo.infrastructure.persistence.po.SysUserPO;
 import cn.hutool.core.util.ObjectUtil;
+import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import static cn.codingjc.peekaboo.domain.common.constant.CommonConstant.TOKEN_HEAD;
+import static cn.codingjc.peekaboo.domain.common.constant.CommonConstant.USERNAME;
 
 
 @Slf4j
@@ -55,4 +61,14 @@ public class SysUserServiceImpl implements SysUserService {
         }
     }
 
+    @Override
+    public void loginOut(String token) {
+        String authToken = token.substring(TOKEN_HEAD.length());
+        Claims claims = JwtUtils.verifyJwt(authToken);
+        if (claims == null) {
+            throw new BusinessException(ErrorCodeEnum.TOKEN_INVALID);
+        }
+        String username = claims.get(USERNAME, String.class);
+        userRepository.deleteToken(username);
+    }
 }

@@ -22,26 +22,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static cn.codingjc.peekaboo.domain.common.constant.CommonConstant.*;
+
 @Slf4j
 @Component
 public class JwtAuthticationTokenFilter extends OncePerRequestFilter {
-
-    private final String tokenHeader = "Authtication";
-    private final String tokenHead = "Bear ";
 
     @Autowired
     UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        String token = req.getHeader(tokenHeader);
-        if (StringUtils.isNotEmpty(token) && token.startsWith(tokenHead)) {
-            String authToken = token.substring(this.tokenHead.length());
+        String token = req.getHeader(TOKEN_HEADER);
+        if (StringUtils.isNotEmpty(token) && token.startsWith(TOKEN_HEAD)) {
+            String authToken = token.substring(TOKEN_HEAD.length());
             Claims claims = JwtUtils.verifyJwt(authToken);
             if (claims == null) {
                 throw new BusinessException(ErrorCodeEnum.TOKEN_INVALID);
             }
-            String username = claims.get("username", String.class);
+            String username = claims.get(USERNAME, String.class);
             String redisToken = userRepository.getTokenByUserName(username);
             if (StringUtils.isEmpty(redisToken)) {
                 throw new BusinessException(ErrorCodeEnum.TOKEN_INVALID);
