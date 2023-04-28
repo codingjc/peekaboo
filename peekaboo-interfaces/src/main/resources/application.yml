@@ -64,5 +64,7 @@ xxl:
       logretentiondays: 7
 
 springdoc:
+  api-docs:
+    enabled: true
   swagger-ui:
     path: /swagger-ui.html

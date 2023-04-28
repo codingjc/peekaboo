@@ -5,6 +5,12 @@ import cn.codingjc.peekaboo.application.util.MessageUtils;
 import cn.codingjc.peekaboo.domain.domain.dto.LoginRequestDTO;
 import cn.codingjc.peekaboo.domain.domain.dto.RegisterRequestDTO;
 import cn.codingjc.peekaboo.domain.domain.vo.ResultVO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +22,7 @@ import static cn.codingjc.peekaboo.domain.common.constant.CommonConstant.TOKEN_H
 @RestController
 @RequestMapping("/user")
 @AllArgsConstructor
+@Tag(name = "user", description = "用户相关")
 public class SysUserController {
 
     private final SysUserService sysUserService;
@@ -26,6 +33,8 @@ public class SysUserController {
      * @return
      */
     @PostMapping("/register")
+    @Operation(summary = "Register user", description = "This can only be done by the logged in user.", tags = { "user" })
+    @ApiResponses(value = { @ApiResponse(description = "successful operation", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ResultVO.class)), @Content(mediaType = "application/xml", schema = @Schema(implementation = ResultVO.class)) }) })
     public ResultVO register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
         sysUserService.register(registerRequestDTO);
         return ResultVO.ok(MessageUtils.getMessage("register.success"));
