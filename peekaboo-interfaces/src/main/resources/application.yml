@@ -55,9 +55,11 @@ tencent:
 xxl:
   job:
     admin:
-      addresses:
+      addresses: http://192.169.0.105:8080/xxl-job-admin
     accessToken: default_token
     executor:
+      ip:
+      address:
       appname:
       port: 38801
       logpath: logs/xxl-job/first-study
